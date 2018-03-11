@@ -10,7 +10,8 @@
   var weatherPlace = cardElement.querySelector('.weather-place');
   var weatherTemperature = cardElement.querySelector('.weather-temperature span');
   var weatherDescription = cardElement.querySelector('.weather-descr');
-  var weatherPic = cardElement.querySelector('.weather-pic img');
+  var weatherStateIcon = cardElement.querySelector('.weather-state-icon img');
+  var weatherMapPic = cardElement.querySelector('.weather-map-pic img');
   var geolocationUrl = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBpTX9FdZs4fLglcWPvPynL3S9KWdHHCPE';
   var weatherBaseUrl = 'https://api.apixu.com/v1/current.json?key=6acd666563c644979dd170248170205&q=';
   var coords;
@@ -32,6 +33,8 @@
    */
   function successDataLoadHandler(xhr) {
     coords = new Coordinates(xhr.response.location.lat, xhr.response.location.lng);
+    weatherMapPic.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + xhr.response.location.lat + "," + xhr.response.location.lng + "&zoom=13&size=300x300&sensor=false";
+
     getWeather(coords);
   }
 
@@ -86,7 +89,7 @@
     weatherPlace.textContent = data.location.name;
     weatherTemperature.textContent = data.current.temp_c;
     weatherDescription.textContent = data.current.condition.text;
-    weatherPic.src = data.current.condition.icon;
+    weatherStateIcon.src = data.current.condition.icon;
 
     if (callback && typeof callback === 'function') {
       callback();

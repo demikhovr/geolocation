@@ -1,0 +1,41 @@
+.btn {
+  padding: 0.5em 1em;
+  border: none;
+
+  font-size: 1.2em;
+  color: white;
+
+  cursor: pointer;
+  outline: none;
+
+  &--gradient-tracking {
+    position: relative;
+
+    background-color: #2379f7;
+
+    overflow: hidden;
+
+    span {
+      position: relative;
+    }
+
+    &::before {
+      --size: 0;
+
+      content: "";
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+
+      width: var(--size);
+      height: var(--size);
+      background-image: radial-gradient(circle closest-side, aqua, rgba(0, 255, 255, 0.0001));
+      transform: translate3d(-50%, -50%, 0);
+      transition: width 0.2s ease, height 0.2s ease;
+    }
+
+    &:hover::before {
+      --size: 200px;
+    }
+  }
+}
